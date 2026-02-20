@@ -9,7 +9,7 @@ export default function Home() {
             Free Online Calculator
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Simple and easy-to-use calculator for all your basic math operations. Perform addition, subtraction, multiplication, and division instantly.
+            Simple and easy-to-use calculator for all your basic math operations. Perform addition, subtraction, multiplication, and long division with remainders instantly.
           </p>
         </header>
         
@@ -28,6 +28,10 @@ export default function Home() {
               <li className="flex items-start">
                 <span className="font-semibold mr-2">•</span>
                 <span><strong>Operations:</strong> Use +, -, ×, ÷ buttons for calculations</span>
+              </li>
+              <li className="flex items-start">
+                <span className="font-semibold mr-2">•</span>
+                <span><strong>Long Division:</strong> Division shows quotient and remainder (e.g., 7 ÷ 2 = 3 R 1)</span>
               </li>
               <li className="flex items-start">
                 <span className="font-semibold mr-2">•</span>

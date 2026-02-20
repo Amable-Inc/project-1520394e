@@ -33,26 +33,35 @@ export default function Calculator() {
       setPreviousValue(currentValue);
     } else if (operation) {
       const result = calculate(previousValue, currentValue, operation);
-      setDisplay(String(result));
-      setPreviousValue(result);
+      setDisplay(result);
+      setPreviousValue(parseFloat(result.split(' ')[0])); // Store quotient for chained operations
     }
     
     setOperation(op);
     setNewNumber(true);
   };
 
-  const calculate = (prev: number, current: number, op: string): number => {
+  const calculate = (prev: number, current: number, op: string): string => {
+    let result: number;
     switch (op) {
       case '+':
-        return prev + current;
+        result = prev + current;
+        return String(result);
       case '-':
-        return prev - current;
+        result = prev - current;
+        return String(result);
       case '×':
-        return prev * current;
+        result = prev * current;
+        return String(result);
       case '÷':
-        return prev / current;
+        if (current === 0) {
+          return 'Error';
+        }
+        const quotient = Math.floor(prev / current);
+        const remainder = prev % current;
+        return remainder === 0 ? String(quotient) : `${quotient} R ${remainder}`;
       default:
-        return current;
+        return String(current);
     }
   };
 
@@ -60,7 +69,7 @@ export default function Calculator() {
     if (operation && previousValue !== null) {
       const currentValue = parseFloat(display);
       const result = calculate(previousValue, currentValue, operation);
-      setDisplay(String(result));
+      setDisplay(result);
       setPreviousValue(null);
       setOperation(null);
       setNewNumber(true);
@@ -91,10 +100,10 @@ export default function Calculator() {
   }) => {
     const baseStyle = 'h-16 text-xl font-semibold rounded-lg transition-all active:scale-95';
     const variants = {
-      default: 'bg-gray-200 hover:bg-gray-300 text-gray-800',
-      operation: 'bg-orange-500 hover:bg-orange-600 text-white',
-      equals: 'bg-green-500 hover:bg-green-600 text-white',
-      clear: 'bg-red-500 hover:bg-red-600 text-white',
+      default: 'bg-gradient-to-br from-emerald-400 to-teal-500 hover:from-emerald-500 hover:to-teal-600 text-white shadow-lg',
+      operation: 'bg-gradient-to-br from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white shadow-lg',
+      equals: 'bg-gradient-to-br from-fuchsia-500 to-purple-600 hover:from-fuchsia-600 hover:to-purple-700 text-white shadow-lg',
+      clear: 'bg-gradient-to-br from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white shadow-lg',
     };
     
     return (
@@ -108,9 +117,9 @@ export default function Calculator() {
   };
 
   return (
-    <article className="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-2xl p-6">
-      <header className="mb-4">
-        <output className="block w-full bg-gray-100 rounded-lg p-6 text-right text-4xl font-bold text-gray-800 overflow-hidden text-ellipsis">
+    <article className="w-full max-w-sm mx-auto bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-2xl shadow-2xl p-8">
+      <header className="mb-6">
+        <output className="block w-full bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl p-6 text-right text-4xl font-bold text-white overflow-hidden text-ellipsis shadow-inner">
           {display}
         </output>
       </header>
